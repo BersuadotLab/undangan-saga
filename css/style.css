@@ -503,3 +503,36 @@ body {
 .footer-brand strong {
     font-family: 'Rink Semibold', sans-serif;
 }
+
+
+@media only screen and (max-width: 480px) {
+    
+
+    .event-title {
+        font-size: 2.8rem; 
+    }
+
+
+    .event-card {
+        padding: 30px 15px; 
+    }
+
+
+    .countdown-container {
+        gap: 20px;
+    }
+    
+    .countdown-number {
+        font-size: 2.2rem;
+    }
+
+
+    .wishes-title {
+        font-size: 0.95rem;
+    }
+
+
+    .wishes-display-box {
+        height: 350px;
+    }
+}
