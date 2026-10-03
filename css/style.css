@@ -328,6 +328,18 @@ body {
 .video-container:hover .play-icon{
     transform: scale(1.1);
 }
+
+
+.video-player {
+    width: 95%;
+    max-width: 420px;
+    border: 1px solid #f7e0a3;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
 .video-subtitle {
     font-size: 0.95rem;
     font-style: italic;
