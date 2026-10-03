@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It's a Match!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f1ea;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 15vh;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #721c24;
+        }
+
+
+        .match-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 1.5s;
+        }
+
+
+        .photo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 250px;
+            margin-bottom: 50px;
+        }
+
+
+        .photo-card {
+            width: 160px;
+            height: 220px;
+            border-radius: 10px;
+            object-fit: cover;
+            position: absolute;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+        }
+
+
+        .photo-left {
+            transform: rotate(-10deg) translateX(-150px);
+            z-index: 1;
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+
+        .photo-right {
+            transform: rotate(5deg) translateX(150px);
+            z-index: 2;
+            animation: slideInRight 0.8s ease forwards 0.3s;
+        }
+
+
+        .match-badge {
+            position: absolute;
+            top: -15px;
+            background-color: #721c24;
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid white;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0) rotate(-5deg);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s;
+        }
+
+
+        .heart-icon {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 40px;
+            height: 40px;
+            background-color: #721c24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            z-index: 5;
+            opacity: 0;
+            animation: popInHeart 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.2s;
+        }
+
+
+        .heart-icon::before {
+            content: "♥";
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+
+        .match-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 1.8s;
+        }
+
+        .match-text span {
+            color: #721c24;
+        }
+
+
+        .tap-to-continue {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8rem;
+            opacity: 0;
+            color: #721c24;
+            animation: pulseText 2s infinite;
+        }
+
+        /* --- KEYFRAMES ANIMASI --- */
+        @keyframes slideInLeft {
+            to { transform: rotate(-5deg) translateX(-60px); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            to { transform: rotate(3deg) translateX(50px); opacity: 1; }
+        }
+        @keyframes popIn {
+            to { transform: scale(1) rotate(-5deg); opacity: 1; }
+        }
+        @keyframes popInHeart {
+            to { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+
+    <h1 class="match-title">It's a match</h1>
+
+
+    <div class="photo-container">
+        
+
+        <div class="match-badge">Match</div>
+
+
+        <img src="images/foto_ilham.jpeg" alt="Ilham" class="photo-card photo-left">
+        
+
+        <img src="images/foto_sasha.jpeg" alt="Sasha" class="photo-card photo-right">
+
+
+        <div class="heart-icon"></div>
+
+    </div>
+
+
+    <p class="match-text"><strong>Ilham</strong> dan <strong>Sasha</strong> saling menyukai</p>
+
+
+    <p class="tap-to-continue">Ketuk layar di mana saja untuk melanjutkan</p>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
