@@ -513,7 +513,10 @@ body {
     }
 
 
- 
+
+    .event-section {
+        margin-top: -50px;
+    }
 
 
     .event-card {
