@@ -543,3 +543,24 @@ body {
         height: 350px;
     }
 }
+
+
+@media only screen and (min-width: 768px) {
+    
+    
+    html {
+        background-color: #4a1116; 
+        display: flex;
+        justify-content: center;
+    }
+
+   
+    body {
+        width: 100%;
+        max-width: 480px; 
+        margin: 0;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        border-left: 1px solid rgba(247, 224, 163, 0.2);
+        border-right: 1px solid rgba(247, 224, 163, 0.2);
+    }
+}
