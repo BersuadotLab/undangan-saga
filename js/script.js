@@ -1,19 +1,24 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // ==========================================
-    // 1. LOGIKA UNTUK NAMA TAMU DINAMIS
-    // ==========================================
+
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
 
     if (namaTamu) {
-        // Ganti teks nama tamu di halaman depan
+
         const elemenNama = document.getElementById('nama-tamu');
         if (elemenNama) {
             elemenNama.innerText = namaTamu;
         }
 
-        // Update tombol QR agar membawa nama tamu ke halaman selanjutnya
+
+        const btnMasuk = document.querySelector('.btn-masuk');
+        if (btnMasuk) {
+            const baseURL = btnMasuk.getAttribute('href').split('?')[0]; 
+            btnMasuk.href = `${baseURL}?to=${encodeURIComponent(namaTamu)}`;
+        }
+
+
         const btnQR = document.querySelector('.btn-tampil-qr');
         if (btnQR) {
             const baseURL = btnQR.getAttribute('href').split('?')[0]; 
@@ -21,13 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // ==========================================
-    // 2. LOGIKA PEMBUATAN QR CODE OTOMATIS
-    // ==========================================
+
     const wadahQR = document.getElementById('qrcode');
     if (wadahQR) {
         new QRCode(wadahQR, {
-            text: namaTamu || 'Tamu VIP', // Jika dibuka tanpa nama, defaultnya 'Tamu VIP'
+            text: namaTamu || 'Tamu VIP',
             width: 200,
             height: 200,
             colorDark : "#721c24", 
@@ -36,13 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ==========================================
-    // 3. PENGATURAN HALAMAN "IT'S A MATCH"
-    // ==========================================
+
     if (document.body.innerHTML.includes("It's a match") || document.body.innerHTML.includes("saling menyukai")) {
         
         let targetHalaman = 'barcodetm.html';
-        // Pastikan nama tamu ikut terbawa saat pindah halaman otomatis
+
         if (namaTamu) {
             targetHalaman += `?to=${encodeURIComponent(namaTamu)}`;
         }
@@ -59,9 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.cursor = "pointer";
     }
 
-    // ==========================================
-    // 4. LOGIKA FORM UCAPAN
-    // ==========================================
+
     const wishesForm = document.querySelector('.wishes-form');
     const displayBox = document.querySelector('.wishes-display-box');
 
@@ -85,9 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ==========================================
-    // 5. LOGIKA COUNTDOWN (HITUNG MUNDUR)
-    // ==========================================
+
     const tanggalTujuan = new Date("January 20, 2027 09:00:00").getTime();
 
     const hitungMundur = setInterval(function() {
