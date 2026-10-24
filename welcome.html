@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Sign - Sasha & Ilham</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset bawaan */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Latar belakang terluar (gelap) untuk pengguna desktop */
+        body, html {
+            height: 100%;
+            background-color: #3b0f11; /* Merah sangat gelap untuk pinggiran */
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center; /* Memastikan posisi di tengah */
+        }
+
+        /* Bingkai utama menyerupai layar HP */
+        .mobile-wrapper {
+            width: 100%;
+            max-width: 480px; /* Lebar maksimal seukuran HP */
+            height: 100%;
+            background-color: #721c24; /* Warna merah marun utama di dalam */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4); /* Efek bayangan memisahkan HP dan background luar */
+        }
+
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #f6de99; /* Warna kuning keemasan */
+            letter-spacing: 1.5px;
+        }
+
+        #nama-tamu {
+            font-weight: 700;
+            font-size: 22px; /* Nama dibesarkan sedikit agar menonjol */
+            display: block;
+            margin-top: 10px;
+        }
+
+        .message {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #ffffff;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pembungkus tampilan HP -->
+    <div class="mobile-wrapper">
+        <p class="greeting">Hai! <span id="nama-tamu">Nama Tamu</span></p>
+        
+        <p class="message">
+            Setiap cerita memiliki babak barunya sendiri,
+            dan hari ini kami sangat bersukacita karena
+            akhirnya bisa mengabarkan babak baru
+            dalam hidup kami kepada Anda.
+        </p>
+    </div>
+
+    <!-- Script Gabungan: Tangkap Nama & Pindah Halaman -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Tangkap nama dari URL dan langsung ganti teks di layar
+            const urlParams = new URLSearchParams(window.location.search);
+            const namaTamu = urlParams.get('to');
+            
+            if (namaTamu) {
+                const elemenNama = document.getElementById('nama-tamu');
+                if (elemenNama) {
+                    elemenNama.innerText = namaTamu;
+                }
+            }
+
+            // 2. Hitung mundur 7 detik untuk pindah ke detail acara
+            setTimeout(function() {
+                let targetURL = 'detail-acara.html';
+                if (namaTamu) {
+                    targetURL += `?to=${encodeURIComponent(namaTamu)}`;
+                }
+                window.location.href = targetURL;
+            }, 3000); 
+        });
+    </script>
+</body>
+</html>
