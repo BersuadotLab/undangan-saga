@@ -64,22 +64,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // ==========================================
-    // 4. SISTEM BUKU TAMU (GOOGLE SHEETS)
+    // 4. SISTEM BUKU TAMU (GOOGLE SHEETS) - FINAL GITHUB
     // ==========================================
     const wishesForm = document.querySelector('.wishes-form');
     const displayBox = document.querySelector('.wishes-display-box');
     
-    // URL GOOGLE APPS SCRIPT YANG SUDAH DIMASUKKAN:
+    // URL GOOGLE APPS SCRIPT
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwwoEuhwOIilYAZwgN58Uoxmem7KfyjP8JuT2rtLdsA3BNlj8UzespQft3bEgYKa4WN/exec'; 
 
-    if (wishesForm && displayBox && scriptURL !== 'URL_WEB_APP_KAMU_DISINI') {
+    if (wishesForm && displayBox) {
         
-        // Fungsi untuk mengambil data ucapan saat halaman dimuat
+        // Fungsi memuat data dari Google Sheets saat halaman dibuka
         function loadWishes() {
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
-                    displayBox.innerHTML = ''; // Bersihkan data dummy
+                    displayBox.innerHTML = ''; 
                     data.forEach(item => {
                         const wishItem = document.createElement('div');
                         wishItem.classList.add('wish-item');
@@ -87,13 +87,12 @@ document.addEventListener("DOMContentLoaded", function() {
                             <div class="wish-name">${item.nama}</div>
                             <div class="wish-text">${item.ucapan}</div>
                         `;
-                        displayBox.prepend(wishItem); // Menampilkan ucapan terbaru di atas
+                        displayBox.prepend(wishItem); 
                     });
                 })
                 .catch(error => console.error('Gagal memuat ucapan:', error));
         }
 
-        // Panggil fungsi untuk menampilkan daftar ucapan
         loadWishes();
 
         // Fungsi saat tombol kirim ditekan
@@ -107,38 +106,38 @@ document.addEventListener("DOMContentLoaded", function() {
             const nama = document.getElementById('namaLengkap').value;
             const ucapan = document.getElementById('ucapan').value;
 
-            // Membungkus data murni (paling kompatibel dengan Google Sheets)
-            let requestBody = new FormData();
-            requestBody.append('nama', nama);
-            requestBody.append('ucapan', ucapan);
+            // Membungkus data untuk dikirim ke Google Sheets
+            let formData = new FormData();
+            formData.append('nama', nama);
+            formData.append('ucapan', ucapan);
 
-            // Mengirim data ke Google Sheets
-            fetch(scriptURL, { method: 'POST', body: requestBody })
+            // Fetch versi standar tanpa no-cors (karena sudah di GitHub)
+            fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    suksesTampil(); // Berhasil dikirim!
+                    // Jika berhasil, munculkan di layar dan kosongkan form
+                    const wishItem = document.createElement('div');
+                    wishItem.classList.add('wish-item');
+                    wishItem.innerHTML = `
+                        <div class="wish-name">${nama}</div>
+                        <div class="wish-text">${ucapan}</div>
+                    `;
+                    displayBox.prepend(wishItem);
+                    
+                    wishesForm.reset();
+                    submitTombol.innerText = teksTombolAsli;
                 })
                 .catch(error => {
-                    // PENTING: Walaupun Live Server memunculkan error CORS, 
-                    // data sebenarnya TETAP MASUK ke Google Sheets.
-                    // Jadi kita paksa sukses saja agar tamu tidak kebingungan!
-                    console.log('Error dari browser diabaikan. Data diam-diam masuk.');
-                    suksesTampil(); 
+                    // Jika gagal (misal koneksi terputus)
+                    console.error('Error!', error.message);
+                    submitTombol.innerText = 'Gagal, Coba Lagi';
+                    
+                    // Kembalikan teks tombol setelah 3 detik
+                    setTimeout(() => {
+                        submitTombol.innerText = teksTombolAsli;
+                    }, 3000);
                 });
-
-            // Fungsi untuk memunculkan ucapan ke layar
-            function suksesTampil() {
-                const wishItem = document.createElement('div');
-                wishItem.classList.add('wish-item');
-                wishItem.innerHTML = `
-                    <div class="wish-name">${nama}</div>
-                    <div class="wish-text">${ucapan}</div>
-                `;
-                displayBox.prepend(wishItem); // Memunculkan ucapan terbaru di atas
-                
-                wishesForm.reset();
-                submitTombol.innerText = teksTombolAsli;
-            }
         });
+    }
 
     // ==========================================
     // 5. HITUNG MUNDUR ACARA
