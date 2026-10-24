@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // ==========================================
-    // 1. TANGKAP NAMA TAMU DAN UBAH TOMBOL
-    // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
 
@@ -25,9 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // ==========================================
-    // 2. GENERATE QR CODE
-    // ==========================================
+
     const wadahQR = document.getElementById('qrcode');
     if (wadahQR) {
         new QRCode(wadahQR, {
@@ -40,9 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ==========================================
-    // 3. HALAMAN "IT'S A MATCH"
-    // ==========================================
+
     if (document.body.innerHTML.includes("It's a match") || document.body.innerHTML.includes("saling menyukai")) {
         
         let targetHalaman = 'welcome.html';
@@ -63,18 +56,16 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.cursor = "pointer";
     }
 
-    // ==========================================
-    // 4. SISTEM BUKU TAMU (GOOGLE SHEETS) - FINAL GITHUB
-    // ==========================================
+
     const wishesForm = document.querySelector('.wishes-form');
     const displayBox = document.querySelector('.wishes-display-box');
     
-    // URL GOOGLE APPS SCRIPT
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwoEuhwOIilYAZwgN58Uoxmem7KfyjP8JuT2rtLdsA3BNlj8UzespQft3bEgYKa4WN/exec'; 
+    // URL GOOGLE APPS SCRIPT TERBARU:
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwBmMSbgMfriBxW6HBpnQzW4OdUhg8MYM5GYTXuwUzuVUW7QDgxmIN_ks8xo5q7KAH_/exec'; 
 
     if (wishesForm && displayBox) {
         
-        // Fungsi memuat data dari Google Sheets saat halaman dibuka
+
         function loadWishes() {
             fetch(scriptURL)
                 .then(response => response.json())
@@ -95,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         loadWishes();
 
-        // Fungsi saat tombol kirim ditekan
+
         wishesForm.addEventListener('submit', function(event) {
             event.preventDefault(); 
             
@@ -106,15 +97,15 @@ document.addEventListener("DOMContentLoaded", function() {
             const nama = document.getElementById('namaLengkap').value;
             const ucapan = document.getElementById('ucapan').value;
 
-            // Membungkus data untuk dikirim ke Google Sheets
+
             let formData = new FormData();
             formData.append('nama', nama);
             formData.append('ucapan', ucapan);
 
-            // Fetch versi standar tanpa no-cors (karena sudah di GitHub)
+
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    // Jika berhasil, munculkan di layar dan kosongkan form
+
                     const wishItem = document.createElement('div');
                     wishItem.classList.add('wish-item');
                     wishItem.innerHTML = `
@@ -127,11 +118,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     submitTombol.innerText = teksTombolAsli;
                 })
                 .catch(error => {
-                    // Jika gagal (misal koneksi terputus)
+
                     console.error('Error!', error.message);
                     submitTombol.innerText = 'Gagal, Coba Lagi';
                     
-                    // Kembalikan teks tombol setelah 3 detik
+
                     setTimeout(() => {
                         submitTombol.innerText = teksTombolAsli;
                     }, 3000);
@@ -139,9 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ==========================================
-    // 5. HITUNG MUNDUR ACARA
-    // ==========================================
+
     const tanggalTujuan = new Date("January 20, 2027 09:00:00").getTime();
 
     const hitungMundur = setInterval(function() {
